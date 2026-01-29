@@ -3,7 +3,9 @@ class Solution {
 public:
     long long minimumCost(string source, string target, vector<char>& original, vector<char>& changed, vector<int>& cost) {
         // Init 26x26 grid with large INF
+        
         vector<vector<long long>> grid(26, vector<long long>(26, 1e15));
+        
         long long INF = 1e15;
 
         // Self-conversion is free

@@ -1,15 +1,25 @@
-# 2976. Minimum Cost to Convert String I
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
+
+using namespace std;
+
+/**
+ * Problem: 2976. Minimum Cost to Convert String I
+ * Logic: Floyd-Warshall Algorithm on a 26-node character graph.
+ */
 class Solution {
 public:
     long long minimumCost(string source, string target, vector<char>& original, vector<char>& changed, vector<int>& cost) {
         // Init 26x26 grid with large INF
-        
-        vector<vector<long long>> grid(26, vector<long long>(26, 1e15));
-        
         long long INF = 1e15;
+        vector<vector<long long>> grid(26, vector<long long>(26, INF));
 
         // Self-conversion is free
-        for (int i = 0; i < 26; i++) grid[i][i] = 0;
+        for (int i = 0; i < 26; i++) {
+            grid[i][i] = 0;
+        }
 
         // Fill direct rules (save cheapest)
         for (int i = 0; i < original.size(); i++) {
@@ -32,6 +42,7 @@ public:
         for (int i = 0; i < source.length(); i++) {
             int u = source[i] - 'a';
             int v = target[i] - 'a';
+            
             if (grid[u][v] >= INF) return -1; // Unreachable
             totalCost += grid[u][v];
         }
@@ -39,4 +50,3 @@ public:
         return totalCost;
     }
 };
-
